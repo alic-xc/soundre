@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Soundre</title>
+    {% block scripts %}
+    {% endblock %}
+</head>
+<body>
+    <div class='app-view'>
+        <header>
+            {% include 'includes/header.html' %}
+        </header>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main> 
+        <footer>
+            {% include 'includes/footer.html' %}
+        </footer>
+    </div>
+</body>
+</html>
