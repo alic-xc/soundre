@@ -40,10 +40,7 @@ INSTALLED_APPS = [
 
     #own
     'apps',
-    'user',
-    'homepage'
-
-
+    
     #third-party
 ]
 
