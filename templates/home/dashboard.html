@@ -6,4 +6,10 @@
     {% csrf_token %}
     <input type="submit" value="Add File">
     </form>
+
+    
+    <h2> all audio uploaded </h2>
+    {% for file in files %}
+        <p>  <a href='{{ file.path }}'>a</a></p>
+    {% endfor %}
 {% endblock %}
