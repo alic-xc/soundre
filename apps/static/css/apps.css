@@ -1,0 +1,224 @@
+*{
+    padding:0px;
+    margin:0px;
+    box-sizing: border-box;
+}
+body{
+    width:100%;
+    height: 100%;
+}
+
+.header{
+    border-bottom:3px solid #0e95f0;
+    padding:5px;
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
+    background:white;
+    
+}
+.header nav{
+    padding:2px;
+}
+.header .left-side-nav{
+    
+}
+.header .right-side-nav{
+    font-size:12px;
+}
+.header nav a{
+    display:inline-block;
+    text-decoration: none;
+    font-family: 'Roboto', 'Open Sans';
+    color:#333;
+}
+.right-side-nav a{
+    padding:4px;
+    font-family:'Open Sans';
+}
+.left-side-nav a h2{
+    font-weight:normal;
+}
+.main-content {
+    height: 550px;
+    background:#f9f8f8;
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    padding:10px;
+}
+
+.layout-1{
+    background:white;
+    box-shadow:0px 0px 1px 1px #eee;
+    width:30%;
+    padding:5px;
+    display: flex;
+    flex-direction: column;
+    
+}
+.layout-1 h2{
+    color:#444;
+    text-align:center;
+    font-family:'Roboto';
+    font-weight:lighter;
+}
+.layout-1 form{
+    padding:10px;
+    font-size:13px;
+    font-family:'Roboto';
+    font-weight: normal;
+}
+form p{
+    margin:3px;
+    padding:3px;
+    width:100%;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items:center;
+}
+form p label{
+    font-size:14px;
+    flex-basis: 25%;
+}
+form p input{
+    border:1px solid #ddd;
+    font-size:14px;
+    flex-basis:70%;
+}
+form p select{
+    border:1px solid #ddd;
+    font-size:14px;
+    flex-basis:70%;
+    padding:3px;
+}
+form p span{
+    
+    display: none;
+}
+form input[type='submit']{
+    margin:5px;
+    padding:5px;
+    font-size: 12px;
+    font-weight: bold;
+    border:1px solid #ddd;
+    background: linear-gradient(to bottom, #f1f1f1, #f2f2f2);
+    color:#666;
+}
+form input[type='text'], form input[type='number'], form input[type='email'], form input[type='file']{
+    border:1px solid #ddd;
+    font-size:13px;
+    padding:5px;
+}
+
+.output{
+    margin-left:1px;
+    font-family:'Roboto';
+    font-size:13px;
+
+}
+.output table{
+    border-collapse: collapse;
+
+}
+
+.ui-list{
+    border:1px solid #ddd;
+    border-radius:2px;
+    margin-bottom:5px;
+    padding:5px;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
+    font-family:arial;
+
+}
+
+.ui-list a{
+    display:inline-block;
+    text-decoration: none;
+    border-radius:3px;
+    padding:5px;
+    font-size:11px;
+    font-weight:lighter;
+    background:linear-gradient(to bottom, #0b88fd, #137cf3);
+    color:#fff;
+    
+}
+.ui-list #delete{
+    display: none;
+}
+.ui-list:hover > span #delete{
+    display:inline-block
+}
+
+
+.ui-list .red{
+    background:linear-gradient(to bottom, #bb3f3f, #f33939);
+}
+.ui-list .lemon{
+    background:linear-gradient(to bottom, #039c50, #039c50);
+}
+.ui-list .green{
+    background:linear-gradient(to bottom, #037913, #037913 );
+}
+.ui-list .title{
+    font-size:13px;
+}
+tr td{
+    border:1px solid #ddd;
+    padding:5px;
+    text-transform:capitalize;
+
+}
+.footer{
+    border-top:3px solid #0e95f0;
+    background:white;
+    padding:2px;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-evenly;
+    align-items:center;
+    height:40px;
+    font-size:13px;
+    font-family:'Roboto';
+    font-weight:400;
+    color:#444;
+}
+.alert{
+    padding:10px;
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+    margin:5px 0px;
+}
+.alert span{
+    font-size:13px;
+    font-family: 'arial';
+    font-weight:bolder;
+    text-transform:capitalize;
+
+}
+.alert-danger{
+    background:linear-gradient(to bottom, #f81010, #f30a29);
+    color:white;
+}
+.alert-warning{
+    background:linear-gradient(to bottom, #e75f0f, #c24b06);
+    color:white;
+}
+.alert-success{
+    background:linear-gradient(to bottom, #10cf10, #089008);
+    color:#fff;
+}
+.alert button{
+    font-size:20px;
+    font-weight: bolder;
+    background:transparent;
+    border:1px solid transparent;
+    margin-right:5px;
+    color:#f1f1f1;
+}

@@ -1,0 +1,28 @@
+{% extends "layout/base.html" %}
+{% block scripts %}
+    <script type='text/javascript'>
+       
+    </script>
+{% endblock %}
+{% block content %}
+    <form action="" method="post" enctype="multipart/form-data">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input type="submit" value="Add File">
+    </form>
+
+    
+   
+{% endblock %}
+{% block output %}
+     <h2> <i class='fas fa-music'></i> Music </h2>
+    {% for file in files %}
+        <p class='ui-list' id="{{ file.hash }}" data-link={{ file.hash }}> <span class='title'> {{ file.name }}</span> <span>
+                    <a class='' href="{% url 'merge' file.hash %}">Merge</a>
+                    <a class='lemon' href="{% url 'remove' file.hash %}">Crop</a>
+                    <a class='green' href="{% url 'tagging' file.hash %}">Tag </a>
+                    <a class='red' id='delete' href="">Delete </a> 
+                    </span> 
+            </p>
+    {% endfor %}
+{% endblock %}

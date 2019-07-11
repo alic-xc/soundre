@@ -11,19 +11,21 @@ from .views import (
         remove_view, 
         register_view, 
         tagging_view,
+        cover_view
     )
 
 
 urlpatterns = [
     path('', index_view, name='index'),
     path('dashboard', dashboard_view, name='dashboard'),
-    path('merge/<uuid:file>/', merge_view, name='merge' ),
-    path('tagging/<uuid:file>/', tagging_view, name='tagging'),
-    path('remove/<uuid:file>/', remove_view, name='remove'),
-    path('register', register_view, name='create'),
+    path('merge/<uuid:hash>/', merge_view, name='merge' ),
+    path('tagging/<uuid:hash>/', tagging_view, name='tagging'),
+    path('remove/<uuid:hash>/', remove_view, name='remove'),
+    path('cover', cover_view, name='cover'),
+    path('register', register_view, name='register'),
     path('login/', login_view, name='login'),
     path('logout', logout_view, name='logout'),
-    path('profile/', profile_view, name='profile' )
+    path('profile', profile_view, name='profile' )
 ]
 
 if settings.DEBUG:

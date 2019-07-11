@@ -4,3 +4,6 @@ class ExtensionException(Exception):
 
 class TaggingException(Exception):
     pass
+
+class SoundException(Exception):
+    pass

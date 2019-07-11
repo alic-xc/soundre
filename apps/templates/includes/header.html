@@ -1,0 +1,15 @@
+    <nav class='left-side-nav'>
+        <a href="{% url 'index' %}"><h2>Soundre</h2> </a>
+    </nav>
+    <nav class='right-side-nav'>
+        <a href="{% url 'index' %}">Home</a>
+        {% if user.is_authenticated == False %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+        {% else %}
+        <a href="{% url 'dashboard' %}"> Audio</a>
+        <a href="{% url 'cover' %}"> Cover Picture </a>
+        <a href="{% url 'logout' %}">Log Out</a> 
+
+        {% endif %}
+    </nav>

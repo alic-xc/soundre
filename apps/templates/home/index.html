@@ -1,0 +1,38 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+    <h2> View Audio Tags </h2>
+
+   <div class='input'>
+        <form action="." method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ audio.as_p}}
+            <input type="submit" value="View Tags">
+        </form>
+   </div>
+   
+   
+{% endblock %}
+
+{% block output %}
+    <div class='output'>
+       {% if audio_tags != None  %}
+       <table>
+       <thead>
+       <tr>
+        <td>Tag</td>
+        <td>Value</td>
+        </tr>
+        </thead>
+        <tbody>
+           {% for key, data in audio_tags.items %}
+            <tr> <td>{{ key }}</td> <td>{{ data.0 }}</td> </tr>
+            {% empty %}
+                <caption>No Tags Available </caption>
+            {% endfor %}
+            </tbody>
+       </table>
+            
+        {% endif %}
+   </div>
+{% endblock%}
