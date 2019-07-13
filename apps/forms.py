@@ -26,9 +26,11 @@ class ShortAudioForm(forms.Form):
     audio = forms.FileField(widget=forms.FileInput({
                             'accept':'.mp3',
                         }))
-    seconds = forms.IntegerField(label='delayed seconds', widget=forms.NumberInput({'min': 0, 'max': 10, 'size':2}))
-    position = forms.CharField(label='Sound Position', widget=forms.RadioSelect(choices=CHOICES))
-    volume = forms.IntegerField(label='volume', widget=forms.NumberInput({'min': -10, 'max': -1, 'size':2}))
+    seconds = forms.IntegerField(label='delayed seconds',
+                                 widget=forms.NumberInput({'min': 0, 'max': 10, 'size':2,'placeholder':'Enter Delayed Seconds'}))
+    position = forms.ChoiceField(label='Sound Position', choices=CHOICES)
+    volume = forms.IntegerField(label='volume',
+                                widget=forms.NumberInput({'min': -10, 'max': -1, 'size':2,'placeholder':'Enter Custom Sound Volume'}))
 
     def clean_audio(self, *args, **kwargs):
         audio = File(self.cleaned_data['audio'])
@@ -52,15 +54,15 @@ class ShortAudioForm(forms.Form):
 
 
 class AudioRangeForm(forms.Form):
-    minute = forms.IntegerField(widget=forms.NumberInput({'min':0, 'size':4}))
-    seconds = forms.IntegerField(widget=forms.NumberInput({'min':0,'max':59}))
-    length = forms.IntegerField(widget=forms.NumberInput({'min':0, 'max':59}))
+    minute = forms.IntegerField(widget=forms.NumberInput({'min':0, 'placeholder':'Enter Position Minute'}))
+    seconds = forms.IntegerField(widget=forms.NumberInput({'min':0,'max':59, 'placeholder':'Enter Position Seconds'}))
+    length = forms.IntegerField(widget=forms.NumberInput({'min':0, 'max':59, 'placeholder':'Enter Length To Remove'}))
 
 
 class AudioTagsForm(forms.Form):
     title = forms.CharField(required=False, widget=forms.TextInput({'placeholder': "Enter Song Title"}))
     album = forms.CharField(required=False, widget=forms.TextInput({'placeholder': "Enter Song's Album "}))
-    composer = forms.CharField(required=False, widget=forms.TextInput({'placeholder': "Enter Song's Compose"}))
+    composer = forms.CharField(required=False, widget=forms.TextInput({'placeholder': "Enter Song's Composer"}))
     copyright = forms.ChoiceField(required=False, choices=[('-- Select Copyright Status --', ''), ('yes', 'yes'), ('no', 'no')])
     artist = forms.CharField(required=False, widget=forms.TextInput({'placeholder': "Enter Artist Name"}))
     albumartist = forms.CharField(label='album artist', required=False, widget=forms.TextInput({'placeholder': "Enter Album Artist"}))
@@ -87,3 +89,4 @@ class BaseCoverPictureSet(BaseInlineFormSet):
 
 class UploadForm(forms.Form):
     audio = forms.FileField(widget=forms.FileInput({'accept':'.mp3'}))
+

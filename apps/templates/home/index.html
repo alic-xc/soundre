@@ -16,23 +16,28 @@
 
 {% block output %}
     <div class='output'>
-       {% if audio_tags != None  %}
-       <table>
-       <thead>
-       <tr>
-        <td>Tag</td>
-        <td>Value</td>
-        </tr>
-        </thead>
-        <tbody>
-           {% for key, data in audio_tags.items %}
-            <tr> <td>{{ key }}</td> <td>{{ data.0 }}</td> </tr>
-            {% empty %}
-                <caption>No Tags Available </caption>
-            {% endfor %}
-            </tbody>
-       </table>
-            
+       {% if audio_tags != ''  %}
+        {% if not audio_tags  %}
+        <h3>No Audio Tags Is Available For This File</h3>
+        
+        {% else %}
+            <table>
+        <thead>
+        <tr>
+            <td>Tag</td>
+            <td>Value</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for key, data in audio_tags.items %}
+                <tr> <td>{{ key }}</td> <td>{{ data.0 }}</td> </tr>
+
+                {% endfor %}
+                </tbody>
+        </table>
+        {% endif %}
+       {% else %}
+            <h2>No Audio Tags Is Available</h2>
         {% endif %}
    </div>
 {% endblock%}

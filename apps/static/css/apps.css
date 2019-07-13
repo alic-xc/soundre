@@ -2,6 +2,7 @@
     padding:0px;
     margin:0px;
     box-sizing: border-box;
+    list-style-type: none;
 }
 body{
     width:100%;
@@ -107,12 +108,15 @@ form input[type='submit']{
     background: linear-gradient(to bottom, #f1f1f1, #f2f2f2);
     color:#666;
 }
-form input[type='text'], form input[type='number'], form input[type='email'], form input[type='file']{
+form input[type='text'], form input[type='number'], form input[type='email']{
     border:1px solid #ddd;
     font-size:13px;
     padding:5px;
 }
-
+form input[type='file']{
+    border:1px solid #ddd;
+    font-size:13px;
+}
 .output{
     margin-left:1px;
     font-family:'Roboto';
@@ -134,11 +138,19 @@ form input[type='text'], form input[type='number'], form input[type='email'], fo
     justify-content: space-between;
     align-items: center;
     font-family:arial;
+    overflow: hidden;
 
 }
-
+.ui-list .action{
+    display:flex;
+    flex-direction:row;
+    justify-content: flex-start;
+    align-items: center;
+    width:60%;
+    height:25px;
+}
 .ui-list a{
-    display:inline-block;
+    display:block;
     text-decoration: none;
     border-radius:3px;
     padding:5px;
@@ -146,12 +158,24 @@ form input[type='text'], form input[type='number'], form input[type='email'], fo
     font-weight:lighter;
     background:linear-gradient(to bottom, #0b88fd, #137cf3);
     color:#fff;
-    
+    margin:2px;
 }
-.ui-list #delete{
+.ui-list div #delete{
+    padding:0;
+    margin:0px;
     display: none;
 }
-.ui-list:hover > span #delete{
+.ui-list div #delete input[type='submit']{
+    margin:0px;
+    padding:5px;
+    font-size:11px;
+    font-weight: lighter;
+    border-radius:3px;
+    color:white;
+    border:1px solid transparent;
+}
+
+.ui-list:hover > div #delete{
     display:inline-block
 }
 
@@ -221,4 +245,81 @@ tr td{
     border:1px solid transparent;
     margin-right:5px;
     color:#f1f1f1;
+}
+.layout-2{
+    align-items:center;
+}
+.layout-2 h3{
+    margin:10px 0px;
+}
+
+.layout-2 div{
+    width:80%;
+}
+.layout-2 div audio{
+height:35px;
+background:#0e95f0;
+}
+.layout-2 div audio{
+
+}
+::-webkit-file-upload-button{
+    color:white;
+    padding:5px;
+    background:#0e95f0;
+    border:0px;    
+}
+
+.gallery-base{
+    display:flex;
+    flex-direction:row;
+    justify-content:flex-start;
+}
+.gallery-base .gallery{
+    box-shadow:0px 0px 2px 1px #ddd;
+    width:150px;
+    height:100px;
+    overflow:hidden;
+    margin-right:5px;
+}
+.gallery:hover > form{
+    display:block;
+}
+.gallery img{
+    width:100%;
+    height:100%;
+    border:0px;
+}
+.gallery span, .gallery form{
+    position: relative;
+    bottom:100%;
+    display:block;
+    font-size:11px;
+    padding:3px;
+    margin-bottom:2px;
+
+}
+.gallery form{
+    padding:0px;
+}
+.gallery .name{
+    background:linear-gradient(to bottom, rgba(194, 5, 169, 0.5), rgba(126, 2, 33, 0.5));
+    color:white;
+    font-family:arial;
+    border:1px solid rgba(194, 5, 169, 0.5);
+}
+.gallery form{
+    display:none;
+}
+.gallery input[type='submit']{
+    padding:3px;
+    margin:0;
+    background:linear-gradient(to bottom, rgba(231, 5, 5, 0.5), rgba(251, 5, 5, 0.808));
+    color:white;
+    font-family:arial;
+    font-size:11px;
+    font-weight:lighter;
+    border:1px solid rgba(251, 5, 5, 0.808);
+    width:100%;
+    text-align:left;
 }

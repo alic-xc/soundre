@@ -101,9 +101,8 @@ def index_view(request):
                 file = request.FILES['audio']
                 audio = EasyID3(file)
             except mutagen.id3.ID3NoHeaderError as err:
-                audio = File(file, easy=True)
-                audio.add_tags()
-                audio.save(audio, v1=2)
+                audio = {}
+
 
     context = {
         "audio": audio_form,
@@ -113,86 +112,101 @@ def index_view(request):
 
 @login_required
 def merge_view(request, hash):
-    try:
-        form = ShortAudioForm()
-        sound1 = get_object_or_404(AudioModel, user=request.user, hash=hash)
 
-        if request.method == 'POST':
-            form = ShortAudioForm(request.POST, request.FILES)
-            if form.is_valid():
-                sound2 = request.FILES['audio']
-                position = form.cleaned_data['position']
+    form = ShortAudioForm()
+    sound1 = get_object_or_404(AudioModel, user=request.user, hash=hash)
+
+    if request.method == 'POST':
+        form = ShortAudioForm(request.POST, request.FILES)
+        if form.is_valid():
+            sound2 = request.FILES['audio']
+            position = form.cleaned_data['position']
+            try:
                 action = Merge(sound1.path, sound2, position)
-                action.run_process(form.cleaned_data.get('seconds'),form.cleaned_data.get('volume'))
-                return redirect(to='merge')
+                action.run_process(form.cleaned_data.get('seconds'), form.cleaned_data.get('volume'))
+                messages.add_message(request, messages.Success, "The Custom Sound Merge Successfully")
+                return redirect('merge', hash)
+            except Exception as err:
+                messages.add_message(request, messages.WARNING, err)
+                return "home/error.html"
 
-            for error in form.errors:
-                messages.add_message(request, messages.WARNING, error)
+        for error in form.errors:
+            messages.add_message(request, messages.WARNING, error)
 
-            return redirect(to='merge')
-
-    except Exception as err:
-        messages.add_message(request, messages.WARNING, err)
+        return redirect('merge', hash)
 
     context = {
         "form": form,
+        "audio": sound1.path,
+        "name":sound1.name
     }
     return render(request, "home/merge.html", context)
 
 
 @login_required
 def remove_view(request, hash):
-    try:
+    # try:
+    form = AudioRangeForm()
+    file = get_object_or_404(AudioModel, user=request.user, hash=hash)
 
-        form = AudioRangeForm()
-        if request.method == 'POST':
-            form = AudioRangeForm(request.POST)
+    if request.method == 'POST':
+        form = AudioRangeForm(request.POST)
 
-            if form.is_valid():
-                file = AudioModel.objects.get(user=request.user, hash=hash)
-                minute = form.cleaned_data.get('minute')
-                seconds = form.cleaned_data.get('seconds')
-                length = form.cleaned_data.get('length')
+        if form.is_valid():
+            minute = form.cleaned_data.get('minute')
+            seconds = form.cleaned_data.get('seconds')
+            length = form.cleaned_data.get('length')
+            try:
                 cropping = Crop(file.path, minute, seconds, length)
-                cropping.run_process()
+                rp = cropping.run_process()
+                if rp is not True:
+                    raise Exception("Invalid Length, Check Audio Length")
                 messages.add_message(request, messages.SUCCESS, 'Audio File Edited Successful')
 
-            for error in form.errors:
-                messages.add_message(request, messages.WARNING, error)
+            except (AttributeError, Exception) as err:
+                messages.add_message(request, messages.WARNING, err)
 
-            return redirect('remove',hash)
+        for error in form.errors:
+            messages.add_message(request, messages.WARNING, error)
 
-    except Exception as err:
-        messages.add_message(request, messages.WARNING, err)
+        return redirect('remove',hash)
 
     context = {
-        "form":form
+        "form": form,
+        "name": file.name,
+        "audio":file.path
     }
     return render(request, "home/remove.html", context)
 
 
 @login_required
 def tagging_view(request, hash):
-    audio = get_object_or_404(AudioModel,hash=hash)
-    audio_tags = Tagging(audio.path)
-    form = AudioTagsForm(initial=audio_tags.tags())
-    if request.method == 'POST':
-        form = AudioTagsForm(request.POST, request.FILES)
-        if form.is_valid():
-            try:
-                audio_tags.add_tag(form.cleaned_data, form.cleaned_data['cover'])
-                messages.add_message(request, messages.SUCCESS, 'Audio File Tagged Successful')
-            except Exception as err:
-                print(err)
+    try:
+        audio = get_object_or_404(AudioModel,hash=hash)
+        audio_tags = Tagging(audio.path)
+        form = AudioTagsForm(initial=audio_tags.tags())
+        if request.method == 'POST':
+            form = AudioTagsForm(request.POST, request.FILES)
+            if form.is_valid():
+                try:
+                    audio_tags.add_tag(form.cleaned_data, form.cleaned_data['cover'])
+                    messages.add_message(request, messages.SUCCESS, 'Audio File Tagged Successful')
+                except Exception as err:
+                    messages.add_message(request, messages.WARNING, err)
 
-        for error in form.errors:
-            print(error)
-            messages.add_message(request, messages.WARNING, error)
+            for error in form.errors:
+                messages.add_message(request, messages.WARNING, error)
 
-        return redirect('tagging', hash)
+            return redirect('tagging', hash)
+
+    except Exception as err:
+        messages.add_message(request, messages.WARNING, err)
+        return "home/error.html"
 
     context  = {
-        "form": form
+        "form": form,
+        "name": audio.name,
+        "audio":audio.path
     }
     return render(request, "home/tagging.html", context)
 
@@ -222,6 +236,7 @@ def dashboard_view(request):
     }
     return render(request, "home/dashboard.html", context)
 
+
 @login_required
 def cover_view(request):
     formset = inlineformset_factory(User, CoverPictureModel,
@@ -229,21 +244,22 @@ def cover_view(request):
                                     can_delete=False,
                                     exclude=['delete'],
                                     extra=1,
-                                    widgets={'path':FileInput({'accept': '.jpeg, .jpg, .png'})})
+                                    widgets={'path':FileInput({'accept': '.jpg'})})
     if request.method == 'POST':
         userObj = User.objects.get(username=request.user)
         form = formset(request.POST, request.FILES, instance=userObj)
         if userObj is not None and form.is_valid() is True:
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Upload Success.')
-            return redirect(to='dashboard')
+            return redirect(to='cover')
 
-        messages.add_message(request, messages.ERROR, 'Upload Failed!. check your data(cover picture) ')
+        for error in form.errors:
+            messages.add_message(request, messages.WARNING, error)
         return redirect(to='cover')
 
-
     context = {
-        "form":formset
+        "form": formset,
+        "pictures": CoverPictureModel.objects.all()
     }
     return render(request, "home/cover.html", context)
 
@@ -253,3 +269,33 @@ def logout_view(request):
     logout(request)
     messages.add_message(request, messages.SUCCESS, 'logged out successful!')
     return redirect(to='index')
+
+@login_required
+def delete_view(request):
+    if request.method == 'POST':
+        try:
+            audio = AudioModel.objects.get(user=request.user, hash=request.POST['hash'])
+            audio.delete()
+            messages.add_message(request, messages.SUCCESS, 'Cover Picture Deleted Successfully')
+            return redirect('dashboard')
+
+        except (AudioModel.DoesNotExist, Exception) as err:
+            messages.add_message(request, messages.WARNING, err)
+            return redirect('dashboard')
+
+    return redirect('dashboard')
+
+@login_required
+def delete_cover_view(request):
+    if request.method == 'POST':
+        try:
+            coverpicture = CoverPictureModel.objects.get(user=request.user, hash=request.POST['hash'])
+            coverpicture.delete()
+            messages.add_message(request, messages.SUCCESS, 'Cover Picture Deleted Successfully')
+            return redirect('cover')
+
+        except (CoverPictureModel.DoesNotExist, Exception) as err:
+            messages.add_message(request, messages.WARNING, err)
+            return redirect('cover')
+
+    return redirect('cover')

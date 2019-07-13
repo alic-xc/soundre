@@ -26,7 +26,6 @@ class Tagging:
             self.audio.save(self.fileObj.path, v1=2)
 
         except (mutagen.MutagenError, ExtensionException) as err:
-            print(err)
             self.audio = None
 
     def add_tag(self, tags, image):
@@ -55,7 +54,9 @@ class Tagging:
 
     def tags(self):
         tags = {}
+
         if self.audio is not None:
+
             for key, value in self.audio.items():
                 tags[key] = value[0]
 

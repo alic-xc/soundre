@@ -11,7 +11,9 @@ from .views import (
         remove_view, 
         register_view, 
         tagging_view,
-        cover_view
+        cover_view,
+        delete_view,
+        delete_cover_view
     )
 
 
@@ -25,7 +27,10 @@ urlpatterns = [
     path('register', register_view, name='register'),
     path('login/', login_view, name='login'),
     path('logout', logout_view, name='logout'),
-    path('profile', profile_view, name='profile' )
+    path('profile', profile_view, name='profile' ),
+    path('delete', delete_view, name='delete'),
+    path('delete/cover', delete_cover_view, name='cover_delete')
+
 ]
 
 if settings.DEBUG:

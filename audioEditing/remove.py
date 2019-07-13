@@ -12,6 +12,9 @@ class Crop:
         try:
             temp = AudioSegment.from_mp3(self.fileObj.path)
             duration = len(temp)
+            if self.length >= self.duration:
+                raise Exception('Invalid Length. Check audio length')
+
             part1 = temp[:self.duration]
             part2 = temp[-(duration - self.length):]
             result = part1 + part2
@@ -19,13 +22,13 @@ class Crop:
                           bitrate="192k",
                           tags={**self.tags},
                           )
+            return True
+
         except Exception as err:
-            return err
+            return False
 
     def get_file_tags(self):
         self.tags = Tagging(self.fileObj).tags()
-        for key, value in self.tags:
-            self.tags[key] = value[0]
         return self.tags
 
     def run_process(self):

@@ -18,9 +18,22 @@ class AudioModel(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField('audio new name', max_length=100, unique=True, null=False, blank=False)
-    hash = models.UUIDField(default=uuid4(), unique=True, null=False, editable=False, blank=True)
+    hash = models.UUIDField(default=uuid4, unique=True, null=False, editable=False, blank=True)
     path = models.FileField('audio', upload_to= file_path)
     date_posted = models.DateTimeField(auto_now=True)
+
+    def delete(self, *args, **kwargs):
+
+        if os.path.isfile(self.path.path):
+            try:
+                os.remove(self.path.path)
+                super().delete()
+                return True
+            except Exception as err:
+                return err
+
+        return super().delete()
+
 
     def __str__(self):
         return f"{self.path} - ({self.user})"
@@ -33,9 +46,21 @@ class CoverPictureModel(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField('Cover Picture', max_length=100, unique=True, null=False, blank=False)
-    hash = models.UUIDField(default=uuid4(), unique=True, null=False, editable=False, blank=True)
+    hash = models.UUIDField(default=uuid4, unique=True, null=False, editable=False, blank=True)
     path = models.ImageField('picture',upload_to=file_path)
     date_posted = models.DateTimeField(auto_now=True)
+
+    def delete(self, *args, **kwargs):
+
+        if os.path.isfile(self.path.path):
+            try:
+                os.remove(self.path.path)
+                super().delete()
+                return True
+            except Exception as err:
+
+                return err
+        return super().delete()
 
     def __str__(self):
         return f" {self.name} "
