@@ -1,4 +1,4 @@
-Django==2.1.5
+Django==2.1.10
 ffmpeg-python==0.1.15
 mutagen==1.42.0
 pydub==0.22.1
