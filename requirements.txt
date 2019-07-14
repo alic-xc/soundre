@@ -1,7 +1,9 @@
 Django==2.1.10
+django_heroku==0.3.1
 dj-database-url==0.5.0
 ffmpeg-python==0.1.15
 gunicorn==19.9.0
 mutagen==1.42.0
 pydub==0.22.1
 psycopg2==2.7.2
+whitenoise==4.1.3
