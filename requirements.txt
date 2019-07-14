@@ -1,6 +1,5 @@
 Django==2.1.10
 dj-database-url==0.5.0
->>>>>>> c33b7ddd729e4190b15d00f09b34baa74c2804bd
 ffmpeg-python==0.1.15
 mutagen==1.42.0
 pydub==0.22.1
