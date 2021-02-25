@@ -19,7 +19,7 @@ class AudioModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField('audio new name', max_length=100, unique=True, null=False, blank=False)
     hash = models.UUIDField(default=uuid4, unique=True, null=False, editable=False, blank=True)
-    path = models.FileField('audio', upload_to= file_path)
+    path = models.FileField('audio', upload_to=file_path)
     date_posted = models.DateTimeField(auto_now=True)
 
     def delete(self, *args, **kwargs):
