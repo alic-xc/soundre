@@ -19,8 +19,11 @@ from django.urls import include, path
 import apps
 
 urlpatterns = [
-    path('',include('apps.urls')),
+    # path('',include('apps.urls')),
     path('admin/', admin.site.urls),
-    
+    path('', include('cropping.urls')),
+    path('', include('merge.urls')),
+    path('', include('tagging.urls')),
+
 
 ]

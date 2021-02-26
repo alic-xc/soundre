@@ -1,3 +1,8 @@
 from django.shortcuts import render
+from django.views import generic
+from tagging.forms import TagForm
 
-# Create your views here.
+
+class TagView(generic.FormView):
+    template_name = 'tagging/tag.html'
+    form_class = TagForm
