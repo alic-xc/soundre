@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from django.views import generic
+from cropping.forms import CropForm
 
-# Create your views here.
+
+class CropView(generic.FormView):
+    """ This view handle cropping of audio to desired length """
+    template_name = 'cropping/crop.html'
+    form_class = CropForm
