@@ -44,7 +44,8 @@ CUSTOM_APPS = [
     # 'apps',
     'cropping',
     'merge',
-    'tagging'
+    'tagging',
+    'account',
 ]
 
 INSTALLED_APPS = BUILTIN_APPS + CUSTOM_APPS

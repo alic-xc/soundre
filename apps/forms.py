@@ -12,9 +12,11 @@ class CreateUserForm(forms.ModelForm):
             'username', 'password', 'email'
         ]
 
+
 class EditUserForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput({'placeholder': 'Enter username'}))
     email = forms.EmailField(widget=forms.EmailInput({'placeholder': 'Enter email'}))
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput({'placeholder': 'Enter username'}))
