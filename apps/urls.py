@@ -24,10 +24,7 @@ urlpatterns = [
     path('tagging/<uuid:hash>/', tagging_view, name='tagging'),
     path('remove/<uuid:hash>/', remove_view, name='remove'),
     path('cover', cover_view, name='cover'),
-    path('register', register_view, name='register'),
-    path('login/', login_view, name='login'),
-    path('logout', logout_view, name='logout'),
-    path('profile', profile_view, name='profile' ),
+
     path('delete', delete_view, name='delete'),
     path('delete/cover', delete_cover_view, name='cover_delete')
 

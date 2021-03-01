@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('cropping.urls')),
     path('', include('merge.urls')),
     path('', include('tagging.urls')),
+    path('', include('account.urls')),
 
 
 ]
