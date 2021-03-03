@@ -14,22 +14,22 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{% url 'dashboard' %}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="modal" data-target="#audioModal">
+        <a class="nav-link fetchAudio" href="#" data-action-type="cropping" data-toggle="modal" data-target="#audioModal">
           <i class="fas fa-fw fa-cut"></i>
           <span>Crop Audio</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="modal" data-target="#audioModal">
+        <a class="nav-link fetchAudio" href="#" data-action-type="merging" data-toggle="modal" data-target="#audioModal">
           <i class="fas fa-fw fa-stamp"></i>
           <span>Stamp Audio</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="modal" data-target="#audioModal">
+        <a class="nav-link fetchAudio" href="#" data-action-type="tagging" data-toggle="modal" data-target="#audioModal">
           <i class="fas fa-fw fa-edit"></i>
           <span>Edit Audio Tag</span></a>
       </li>
@@ -46,12 +46,11 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
+      <div class="modal-body" id="all-audio">
+        <p >Modal body text goes here.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
