@@ -170,7 +170,45 @@
 
   <!-- Custom scripts for all pages-->
   <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+  <script>
+        $(document).ready(function(){
+            $('.fetchAudio').click(function(){
+                const actionType = this.dataset['actionType']
+                $.get({
+                    url: "{% url 'fetch_audio' %}",
+                    success: function(response) {
+                        const dataTable = generateTable(response.data, actionType)
+                        document.querySelector('#all-audio').innerHTML = dataTable
+                    }
+                })
 
+            })
+
+        })
+        function generateTable(data, actiontype){
+            let table = "<table class='table table-bordered'>"
+            let thead = "<thead><tr><td>Name</td><td>Action</td></tr></thead>"
+            let tbody = "<tbody>"
+            data.forEach(function(elem){
+                let tr = "<tr>"
+                tr += "<td>"+ elem.name +"</td>"
+                if(actiontype === 'cropping'){
+                    tr +="<td><a href='/crop/"+ elem.id +"'>view</a></td>"
+                }else if(actiontype === 'merging'){
+                    tr +="<td><a href='/merge/"+ elem.id +"'>view</a></td>"
+                }else if(actiontype === 'tagging'){
+                    tr +="<td><a href='/tag/"+ elem.id +"'>view</a></td>"
+                }
+                tr += "</tr>"
+                tbody += tr
+            })
+            tbody += "</tbody>"
+            table += thead
+            table += tbody
+
+            return table
+        }
+    </script>
 </body>
 
 </html>

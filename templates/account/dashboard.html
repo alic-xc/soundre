@@ -5,4 +5,69 @@
 {% endblock title %}
 
 {% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            {% include 'includes/error.html' %}
+        </div>
+    </div>
+    <div class="row mt-4">
+
+            <!-- Area Chart -->
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Add new Audio</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <form method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      {{  form.as_p }}
+                      <button type="submit" class="btn btn-primary"> Submit </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pie Chart -->
+            <div class="col-xl-8 col-lg-7">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Uploaded audio files</h6>
+
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <table class="table table-bordered">
+                      <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>date uploaded</td>
+                                <td>audio </td>
+                            </tr>
+                      </thead>
+                        <tbody>
+                            {% for audio_object in audio_objects %}
+                                <tr>
+                                    <td>{{ audio_object.name }}</td>
+                                    <td>{{ audio_object.date_posted }}</td>
+                                    <td>
+                                        <audio controls>
+                                            <source src="{{ audio_object.audio.url }}" type="audio/mpeg">
+                                        </audio>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
 {% endblock content %}
+
+{% block script %}
+
+{% endblock %}
