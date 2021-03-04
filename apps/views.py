@@ -174,7 +174,7 @@ def remove_view(request, hash):
     context = {
         "form": form,
         "name": file.name,
-        "audio":file.path
+        "audio": file.path
     }
     return render(request, "home/remove.html", context)
 
