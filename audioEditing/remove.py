@@ -19,7 +19,9 @@ class Crop:
         """
 
         try:
+            print("YET 1")
             temp = AudioSegment.from_mp3(self.fileObj.path)
+            print("YET 3")
             duration = len(temp)
 
             if self.length >= self.duration:
@@ -33,6 +35,7 @@ class Crop:
                           tags={**self.tags})
             return True
         except Exception as err:
+            print(err)
             return False
 
     def get_file_tags(self):
