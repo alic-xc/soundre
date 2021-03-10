@@ -23,36 +23,36 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput({'placeholder': 'Enter password'}))
 
 
-class ShortAudioForm(forms.Form):
-    CHOICES = [('Beginning','beginning'),('End','end')]
-    audio = forms.FileField(widget=forms.FileInput({
-                            'accept':'.mp3',
-                        }))
-    seconds = forms.IntegerField(label='delayed seconds',
-                                 widget=forms.NumberInput({'min': 0, 'max': 10, 'size':2,'placeholder':'Enter Delayed Seconds'}))
-    position = forms.ChoiceField(label='Sound Position', choices=CHOICES)
-    volume = forms.IntegerField(label='volume',
-                                widget=forms.NumberInput({'min': -10, 'max': -1, 'size':2,'placeholder':'Enter Custom Sound Volume'}))
-
-    def clean_audio(self, *args, **kwargs):
-        audio = File(self.cleaned_data['audio'])
-        filesize = round(audio.size/ 1024)
-        if filesize > 1024:
-            forms.ValidationError('Audio size error. required less than 1mb')
-        return audio
-
-    def clean_seconds(self, *args, **kwargs):
-        seconds = self.cleaned_data['seconds']
-        if seconds < 0 or seconds  > 10:
-            forms.ValidationError('Seconds invalid. check delayed seconds')
-        return seconds * 1000
-
-    def clean_volume(self, *args, **kwargs):
-        volume = self.cleaned_data['volume']
-        if volume  > -1 or volume  < -10:
-            forms.ValidationError
-
-        return volume
+# class ShortAudioForm(forms.Form):
+    # CHOICES = [('Beginning','beginning'),('End','end')]
+    # audio = forms.FileField(widget=forms.FileInput({
+    #                         'accept':'.mp3',
+    #                     }))
+    # seconds = forms.IntegerField(label='delayed seconds',
+    #                              widget=forms.NumberInput({'min': 0, 'max': 10, 'size':2,'placeholder':'Enter Delayed Seconds'}))
+    # position = forms.ChoiceField(label='Sound Position', choices=CHOICES)
+    # volume = forms.IntegerField(label='volume',
+    #                             widget=forms.NumberInput({'min': -10, 'max': -1, 'size':2,'placeholder':'Enter Custom Sound Volume'}))
+    #
+    # def clean_audio(self, *args, **kwargs):
+    #     audio = File(self.cleaned_data['audio'])
+    #     filesize = round(audio.size/ 1024)
+    #     if filesize > 1024:
+    #         forms.ValidationError('Audio size error. required less than 1mb')
+    #     return audio
+    #
+    # def clean_seconds(self, *args, **kwargs):
+    #     seconds = self.cleaned_data['seconds']
+    #     if seconds < 0 or seconds  > 10:
+    #         forms.ValidationError('Seconds invalid. check delayed seconds')
+    #     return seconds * 1000
+    #
+    # def clean_volume(self, *args, **kwargs):
+    #     volume = self.cleaned_data['volume']
+    #     if volume  > -1 or volume  < -10:
+    #         forms.ValidationError
+    #
+    #     return volume
 
 
 class AudioRangeForm(forms.Form):

@@ -11,26 +11,26 @@ class Merge:
         self.file1 = file1
         self.file2 = file2
         self.position = position
-
+        self.tags = ''
         self.Obj = mergeobj
 
-    def merge_sound(self, secs, vol):
-
+    def merge_sound(self, secs):
+        """ """
         try:
-            sound1 = self.Obj.from_mp3(self.file1.path)
-            sound2 = self.Obj.from_mp3(File(self.file2))
+            main_audio = self.Obj.from_mp3(self.file1.path)
+            stamp_audio = self.Obj.from_mp3(File(self.file2))
 
-            result = sound1.overlay(sound2, position=self._milliseconds(sound1, secs), gain_during_overlay=vol)
-            result.export(self.file1.path, format="mp3",
-                           bitrate="192k",
-                           tags={**self.tags},
-                           )
+            if len(stamp_audio) > 10000:
+                raise Exception('Audio length greater than 10 secs')
+
+            result = main_audio.overlay(stamp_audio, position=self._milliseconds(main_audio, secs), gain_during_overlay=-6)
+            result.export(self.file1.path, format="mp3", bitrate="192k", tags={**self.tags} )
 
         except FileNotFoundError as err:
-            return err
+            raise err
 
         except SoundException as err:
-            return err
+            raise err
 
         return True
 
@@ -48,9 +48,9 @@ class Merge:
 
         return length - sub
 
-    def run_process(self, secs=5000, vol=-5):
+    def run_process(self, secs=5000):
         self.get_file_tags()
-        self.merge_sound(secs, vol)
+        self.merge_sound(secs)
 
 
 
