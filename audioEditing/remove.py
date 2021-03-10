@@ -6,9 +6,9 @@ class Crop:
     """ Allow cutting out unwanted path from an audios """
 
     def __init__(self, file, minute, seconds, length):
-        self.minute = (minute * 60) if minute > 0 else 0
-        self.duration = (self.minute + seconds) * 1000
-        self.length = (length * 1000) + self.duration
+        self.minute = (minute * 60) if minute > 0 else 0  # set the minute
+        self.starting_point = (self.minute + seconds) * 1000  # Set starting point for cropping
+        self.crop_length = self.starting_point + (length * 1000)  #
         self.fileObj = file
         self.tags = ''
 
@@ -19,16 +19,14 @@ class Crop:
         """
 
         try:
-            print("YET 1")
             temp = AudioSegment.from_mp3(self.fileObj.path)
-            print("YET 3")
             duration = len(temp)
 
-            if self.length >= self.duration:
+            if self.starting_point >= self.crop_length:
                 raise Exception('Invalid Length. Check audio length')
 
-            part1 = temp[:self.duration]
-            part2 = temp[-(duration - self.length):]
+            part1 = temp[:self.starting_point]
+            part2 = temp[-(duration - self.crop_length):]
             result = part1 + part2
             result.export(self.fileObj.path, format="mp3",
                           bitrate="192k",
@@ -44,5 +42,12 @@ class Crop:
         return self.tags
 
     def run_process(self):
-        self.get_file_tags()
-        self.remove()
+        """ Object manager """
+        try:
+            self.get_file_tags()
+            self.remove()
+            return True
+
+        except Exception as err:
+            print(err)
+            return False

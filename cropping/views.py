@@ -24,20 +24,20 @@ class CropView(generic.FormView):
 
     def form_valid(self, form):
         """ """
-
         minute = form.cleaned_data['minute']
         seconds = form.cleaned_data['seconds']
         length = form.cleaned_data['length']
         file = self.get_context_data()['object'].audio
-        print(file)
+
         try:
             cropping = Crop(file, minute, seconds, length)
-            if not cropping.run_process():
-                messages.error(self.request, "Unable to process request. Please check crop length and try again")
+            if cropping.run_process():
+                messages.success(self.request, "Audio cropped successfully")
+                return super().form_valid(form)
 
-            messages.success(self.request, "Audio cropped successfully")
+            messages.error(self.request, "Unable to process request. Please check crop length and try again")
+
         except (AttributeError, Exception) as err:
-            print(err)
             messages.error(self.request, "Ops, something went wrong. Please try again")
 
-        return super().form_valid(form)
+        return super().form_invalid(form)
