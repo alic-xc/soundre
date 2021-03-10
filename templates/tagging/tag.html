@@ -1,0 +1,109 @@
+{% extends 'base/base.html' %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            {% include 'includes/error.html' %}
+        </div>
+    </div>
+    <div class="row mt-4">
+
+            <!-- Area Chart -->
+            <div class="col-xl-8 col-lg-9 offset-2">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Crop {{ object.name }} </h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <form method="post" class="form-row" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label for="">Title</label>
+                              {{ form.title }}
+                              <span class="text-danger">{{ form.title.errors }}</span>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label for="">Album</label>
+                              {{ form.album }}
+                              <span class="text-danger">{{ form.album.errors }}</span>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label for="">Composer</label>
+                              {{ form.composer }}
+                              <span class="text-danger">{{ form.composer.errors }}</span>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label for="">Copyright</label>
+                              {{ form.copyright }}
+                              <span class="text-danger">{{ form.copyright.errors }}</span>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label for="">Artist</label>
+                              {{ form.artist }}
+                              <span class="text-danger">{{ form.artist.errors }}</span>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label for="">Album Artist</label>
+                              {{ form.albumartist }}
+                              <span class="text-danger">{{ form.albumartist.errors }}</span>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label for="">Author</label>
+                              {{ form.author }}
+                              <span class="text-danger">{{ form.author.errors }}</span>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label for="">Language</label>
+                              {{ form.language }}
+                              <span class="text-danger">{{ form.language.errors }}</span>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label for="">Genre</label>
+                              {{ form.genre }}
+                              <span class="text-danger">{{ form.genre.errors }}</span>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label for="">Date</label>
+                              {{ form.date }}
+                              <span class="text-danger">{{ form.date.errors }}</span>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label for="">Cover picture</label>
+                              {{ form.cover }}
+                              <span class="text-danger">{{ form.cover.errors }}</span>
+                          </div>
+                      </div>
+                      <div class="col-12">
+                          <button type="submit" class="btn btn-primary"> Submit </button>
+                      </div>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+{% endblock content %}

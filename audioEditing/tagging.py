@@ -10,9 +10,11 @@ import mutagen
 
 
 class Tagging:
-
+    """
+    This allows editing of audio tags. It depends on mutagen
+    library which makes it easy to worked on
+    """
     def __init__(self, io):
-        """  """
         try:
             self.fileObj = io
             if self.fileObj.url.rsplit('.')[-1] != 'mp3':
@@ -29,17 +31,20 @@ class Tagging:
             self.audio = None
 
     def add_tag(self, tags, image):
+        """
+        Method for editing or adding new tags for a mp3 files.
+        Also, it add cover image to it an image is provided.
+        """
         if tags is not None:
             for key, value in tags.items():
                 if value is not None or value != '':
                     if key != 'cover':
                         self.audio[u'{}'.format(key)] = value
-
             self.audio.save(self.fileObj.path, v1=2)
 
         if image is not None:
-            img = image.path
-            fileObj = open(img.path, 'rb').read()
+            img = image
+            fileObj = image.read()
             img_ext = img.name.rsplit('.')[-1]
             multipart = [('jpg', 'image/jpeg'), ('png', 'image/png'), ('jpeg', 'image/jpeg')]
             img_typ = ''
