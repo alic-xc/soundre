@@ -31,7 +31,7 @@ class LoginView(generic.FormView):
     def dispatch(self, request, *args, **kwargs):
         """ Check if a user session is active before logging in """
         if request.user.is_authenticated:
-            return redirect('dashobard')
+            return redirect('dashboard')
 
         return super().dispatch(request, *args, **kwargs)
 
