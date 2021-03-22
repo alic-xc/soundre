@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -49,12 +50,12 @@ class LoginView(generic.FormView):
         return super().form_invalid(form)
 
 
-class ProfileView(generic.TemplateView):
+class ProfileView(LoginRequiredMixin, generic.TemplateView):
     """ User profile view """
     template_name = 'account/profile.html'
 
 
-class DashboardView(generic.FormView):
+class DashboardView(LoginRequiredMixin, generic.FormView):
     """ User Dashboard """
     template_name = 'account/dashboard.html'
     form_class = UploadAudioForm

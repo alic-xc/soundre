@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views import generic
@@ -9,7 +10,7 @@ from audioEditing.remove import Crop
 from cropping.forms import CropForm
 
 
-class CropView(generic.FormView):
+class CropView(LoginRequiredMixin, generic.FormView):
     """ This view handle cropping of audio to desired length """
     template_name = 'cropping/crop.html'
     form_class = CropForm
