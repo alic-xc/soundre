@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views import generic
@@ -7,7 +8,7 @@ from audioEditing.merge import Merge
 from merge.forms import MergeForm
 
 
-class MergeView(generic.FormView):
+class MergeView(LoginRequiredMixin, generic.FormView):
     template_name = 'merging/merge.html'
     form_class = MergeForm
 

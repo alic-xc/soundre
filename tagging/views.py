@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import generic
@@ -7,7 +8,7 @@ from audioEditing.tagging import Tagging
 from tagging.forms import TagForm
 
 
-class TagView(generic.FormView):
+class TagView(LoginRequiredMixin, generic.FormView):
     template_name = 'tagging/tag.html'
     form_class = TagForm
 
