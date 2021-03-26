@@ -96,4 +96,4 @@ def fetch_audio(request):
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect(to='index')
+    return redirect(to='login')
