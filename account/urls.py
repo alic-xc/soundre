@@ -10,7 +10,8 @@ urlpatterns = [
     path('account/logout', logout_view, name='logout'),
     path('account/profile', ProfileView.as_view(), name='profile'),
     path('dashboard', DashboardView.as_view(), name='dashboard'),
-    path('fetch/audio', fetch_audio, name='fetch_audio')
+    path('fetch/audio', fetch_audio, name='fetch_audio'),
+    path('', HomepageView.as_view(), name='homepage')
 ]
 
 if settings.DEBUG:

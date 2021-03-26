@@ -10,6 +10,10 @@ from account.forms import RegistrationForm, LoginForm, UploadAudioForm
 from account.models import AudioModel
 
 
+class HomepageView(generic.TemplateView):
+    template_name = 'website/homepage.html'
+
+
 class RegistrationView(generic.FormView):
     """ Manage user registration """
     template_name = 'account/registration.html'

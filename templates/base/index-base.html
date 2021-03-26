@@ -27,28 +27,26 @@
                 <div class="col-sm-3 col-6 col-lg-2 col-xl-2 order-lg-1">
                   <!-- Brand Logo -->
                     <div class="brand-logo">
-                        <a href=""><img src="{% static 'image/main-logo.png' %}" alt="" /></a>
+                        <a href="#" class="text-primary">
+                            <i class="fas fa-laugh-wink fa-2x"></i> <span style="display: inline-block; font-size:30px">Soundre</span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-sm-8 col-lg-3 col-xl-3 d-none d-sm-block order-lg-3 offset-xl-1">
                     <div class="header-btns justify-content-end">
-                        <a href="" class="btn btn-outlined--primary btn-sm">Get started</a>
+                        {% if user.is_authenticated %}
+                                <a href="{% url 'dashboard' %}" class="btn btn-outlined--primary btn-sm" href="#">Dashboard</a></li>
+                            {% else %}
+                                <a class="btn btn-outlined--info btn-sm mr-3" href="{% url 'register' %}">Signup</a></li>
+                                <a class="btn btn-outlined--primary btn-sm" href="{% url 'login' %}">Login</a></li>
+                            {% endif %}
                     </div>
                 </div>
                 <!-- Menu Block -->
                 <div class="col-sm-1 col-6 col-lg-7 col-xl-6  position-static order-lg-2">
                     <div class="main-navigation">
                         <ul class="main-menu">
-                            <li class="menu-item">
-                                <a href="#pricing">Pricing</a>
-                                </li>
 
-                            <li class="menu-item"><a href="#services">Services</a></li>
-                            {% if user.is_authenticated %}
-                                <li class="menu-item"><a href="#">Dashboard</a></li>
-                            {% else %}
-                                <li class="menu-item"><a href="{% url 'signup' %}">Signup / Login</a></li>
-                            {% endif %}
                             </ul>
                     </div>
                     <div class="mobile-menu"></div>
@@ -69,7 +67,7 @@
                 <div class="footer-title">
                    <!-- Brand Logo -->
                   <div class="brand-logo">
-                    <img src="{% static 'image/main-logo.png' %}" alt="">
+                      <a class="text-primary">        <i class="fas fa-laugh-wink fa-2x"></i> <span style="display: inline-block; font-size:30px">Soundre</span></a>
                   </div>
                 </div>
                 <div class="footer-text">
@@ -77,60 +75,30 @@
                       you with available tools to work with audio</p>
                 </div>
                 <ul class="footer-social-list">
+
                     <li>
-                      <a href="">
-                        <i class="icon icon-logo-fb-simple"></i>
-                      </a>
-                    </li>
-                    <li>
-                        <a href="">
+                        <a href="https://twitter.com/aladelekan187">
                           <i class="icon icon-logo-twitter"></i>
                         </a>
                       </li>
                       <li>
-                          <a href="">
+                          <a href="mailto@aladelekan187@gmail.com">
                             <i class="icon icon-google"></i>
                           </a>
-                        </li>
+                      </li>
                   </ul>
               </div>
             </div>
-            <div class="col-lg-2 col-sm-4 col-6 offset-xl-1 col-margin">
+            <div class="col-lg-4 col-sm-4 col-6 offset-xl-3 col-margin">
                 <div class="single-footer">
                     <div class="footer-title">
                         <h6>Help Menu</h6>
                       </div>
                       <ul class="footer-list">
-                        <li><a href="">About</a></li>
-                        <li><a href="">Features</a></li>
-                        <li><a href="">Works</a></li>
-                        <li><a href="">Career</a></li>
-                      </ul>
-                </div>
-            </div>
-            <div class="col-lg-2 col-xl-3 col-sm-4 col-6 col-margin">
-                <div class="single-footer">
-                    <div class="footer-title">
-                        <h6>Support</h6>
-                      </div>
-                      <ul class="footer-list">
-                        <li><a href="">Contact</a></li>
-                        <li><a href="">Help & Support</a></li>
-                        <li><a href="">Privacy Policy</a></li>
-                        <li><a href="">Terms & Conditions</a></li>
-                      </ul>
-                </div>
-            </div>
-            <div class="col-lg-2 col-sm-4 col-margin">
-                <div class="single-footer">
-                    <div class="footer-title">
-                        <h6>Products</h6>
-                      </div>
-                      <ul class="footer-list">
-                        <li><a href=""> Shades Pro</a></li>
-                        <li><a href="">Essential Blocks</a></li>
-                        <li><a href="">Avasta Dash</a></li>
-                        <li><a href="">vApp Landing Page</a></li>
+                        <li><a href="{% url 'dashboard' %}">stamp</a></li>
+                        <li><a href="{% url 'dashboard' %}">crop</a></li>
+                        <li><a href="{% url 'dashboard' %}">tagging</a></li>
+                          <li class="mt-3"><a href="https://github.com/alic-xc/soundre">Contribute</a></li>
                       </ul>
                 </div>
             </div>
